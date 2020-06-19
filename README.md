@@ -45,3 +45,43 @@ gaussian_two = Gaussian(30, 4)
 gaussian_sum = gaussian_one + gaussian_two # Using __add__ magic method
 
 ```
+
+# Creating custom packages
+
+[gaussian_project](/gaussian_project) contains custom package. Package code is in /distributions. There are 2 special files, `setup.py` and `/distributions/__init__.py`.
+
+1. Update import statements.
+
+In Gaussiandistribution.py
+
+```py
+from .Generaldistribution import Distribution
+```
+
+2. Create `distributions/__init__.py`. It tells which modules the package must import.
+
+```py
+from .Gaussiandistribution import Gaussian
+```
+
+3. Create `setup.py` and paste template
+
+```py
+import setuptools
+
+setuptools.setup(
+    name="distributions",
+    version="0.1",
+    description="Gaussian distribution",
+    packages=setuptools.find_packages(),
+)
+```
+
+4. Create venv and install this package
+
+```sh
+python -m venv venv
+source venv/bin/activate
+pip install gaussian_project/.
+python gaussian.py
+```
